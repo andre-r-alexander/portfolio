@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   if (typeof gtag !== 'function') return;
 
-  function trackClick(eventName, params = {}) {
+  function sendEvent(eventName, params) {
     gtag('event', eventName, {
       ...params,
       source_page: window.location.pathname,
@@ -9,62 +9,57 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Track all PDF clicks
-  document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
+  document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function () {
-      const href = link.getAttribute('href');
-      const linkText = link.innerText.trim() || 'PDF link';
+      const href = link.getAttribute('href') || '';
+      const fullUrl = new URL(href, window.location.href).href;
+      const linkText = link.innerText.trim() || 'Untitled link';
 
-      let category = 'pdf_download';
+      const container = link.closest('.portfolio-item, .archive-item');
+      const itemTitle = container?.querySelector('h3')?.innerText.trim() || linkText;
 
-      if (href.includes('Resume')) {
-        category = 'resume_download';
-      } else if (link.closest('.portfolio-item')) {
-        category = 'portfolio_pdf_download';
-      } else if (link.closest('.archive-item')) {
-        category = 'archive_pdf_download';
+      if (href.endsWith('.pdf')) {
+        let eventName = 'pdf_click';
+        let pdfType = 'other_pdf';
+
+        if (href.includes('Resume')) {
+          eventName = 'resume_click';
+          pdfType = 'resume';
+        } else if (link.closest('.portfolio-item')) {
+          eventName = 'portfolio_sample_click';
+          pdfType = 'portfolio_sample';
+        } else if (link.closest('.archive-item')) {
+          eventName = 'archive_sample_click';
+          pdfType = 'archive_sample';
+        }
+
+        sendEvent(eventName, {
+          pdf_type: pdfType,
+          file_name: href,
+          file_url: fullUrl,
+          item_title: itemTitle,
+          link_text: linkText
+        });
       }
 
-      const itemTitle =
-        link.closest('.portfolio-item, .archive-item')
-          ?.querySelector('h3')
-          ?.innerText
-          ?.trim() || linkText;
+      else if (href === 'portfolio.html') {
+        sendEvent('portfolio_page_click', {
+          link_text: linkText
+        });
+      }
 
-      trackClick(category, {
-        file_name: href,
-        item_title: itemTitle,
-        link_text: linkText,
-        file_url: new URL(href, window.location.href).href
-      });
-    });
-  });
+      else if (href === 'archives.html') {
+        sendEvent('archives_page_click', {
+          link_text: linkText
+        });
+      }
 
-  // Track portfolio navigation
-  document.querySelectorAll('a[href="portfolio.html"]').forEach(link => {
-    link.addEventListener('click', function () {
-      trackClick('portfolio_click', {
-        link_text: link.innerText.trim()
-      });
-    });
-  });
-
-  // Track archives navigation
-  document.querySelectorAll('a[href="archives.html"]').forEach(link => {
-    link.addEventListener('click', function () {
-      trackClick('archives_click', {
-        link_text: link.innerText.trim()
-      });
-    });
-  });
-
-  // Track LinkedIn clicks
-  document.querySelectorAll('a[href*="linkedin.com"]').forEach(link => {
-    link.addEventListener('click', function () {
-      trackClick('linkedin_click', {
-        link_text: link.innerText.trim(),
-        outbound_url: link.href
-      });
+      else if (href.includes('linkedin.com')) {
+        sendEvent('linkedin_click', {
+          outbound_url: fullUrl,
+          link_text: linkText
+        });
+      }
     });
   });
 });
