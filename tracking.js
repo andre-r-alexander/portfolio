@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
   if (typeof gtag !== 'function') return;
 
-  function sendEvent(eventName, params) {
+  const sourcePage = window.location.pathname;
+
+  function sendEvent(eventName, params = {}) {
     gtag('event', eventName, {
       ...params,
-      source_page: window.location.pathname,
+      source_page: sourcePage,
       transport_type: 'beacon'
     });
   }
 
+  // Track all link clicks
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function () {
       const href = link.getAttribute('href') || '';
@@ -16,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const linkText = link.innerText.trim() || 'Untitled link';
 
       const container = link.closest('.portfolio-item, .archive-item');
-      const itemTitle = container?.querySelector('h3')?.innerText.trim() || linkText;
+      const itemTitle =
+        container?.querySelector('h3')?.innerText.trim() || linkText;
 
       if (href.endsWith('.pdf')) {
         let eventName = 'pdf_click';
@@ -61,5 +65,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
+  });
+
+  // Track time-on-page milestones
+  const timeMilestones = [
+    { seconds: 10, eventName: 'time_10_seconds' },
+    { seconds: 30, eventName: 'time_30_seconds' },
+    { seconds: 60, eventName: 'time_60_seconds' },
+    { seconds: 120, eventName: 'time_120_seconds' }
+  ];
+
+  timeMilestones.forEach(milestone => {
+    setTimeout(function () {
+      sendEvent(milestone.eventName, {
+        seconds_on_page: milestone.seconds
+      });
+    }, milestone.seconds * 1000);
   });
 });
