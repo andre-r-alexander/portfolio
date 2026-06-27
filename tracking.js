@@ -39,14 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const itemTitle =
         container?.querySelector('h3')?.innerText.trim() || linkText;
 
-      // Project inquiry / obfuscated email
       if (link.classList.contains('project-inquiry-link')) {
         event.preventDefault();
         openProjectInquiry(event);
         return;
       }
 
-      // PDF clicks
       if (isPdfLink(href)) {
         let eventName = 'pdf_click';
         let pdfType = 'other_pdf';
@@ -74,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
 
-      // Internal navigation
       else if (href === 'portfolio.html') {
         sendEvent('portfolio_page_click', { link_text: linkText });
       }
@@ -87,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
         sendEvent('return_home_click', { link_text: linkText });
       }
 
-      // LinkedIn clicks
       else if (href.includes('linkedin.com')) {
         sendEvent('linkedin_click', {
           outbound_url: fullUrl,
@@ -97,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Homepage freelancing services expand/collapse
+  // Freelancing services expand/collapse
   window.toggleServices = function () {
     const servicesList = document.getElementById('servicesList');
     const servicesButton = document.getElementById('servicesButton');
@@ -115,27 +111,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  // Homepage service-interest tracking
+  // Track which services visitors explore
   const trackedServices = new Set();
 
   document.querySelectorAll('.service-item').forEach(item => {
-    function trackServiceInterest() {
+    function trackServiceInterest(interactionType) {
       const serviceName =
         item.getAttribute('data-service') ||
         item.querySelector('.service-title')?.innerText.trim() ||
         'Unknown service';
 
-      if (!trackedServices.has(serviceName)) {
-        trackedServices.add(serviceName);
+      const serviceDescription =
+        item.querySelector('.service-description')?.innerText.trim() ||
+        'No description';
+
+      const trackingKey = `${serviceName}-${interactionType}`;
+
+      if (!trackedServices.has(trackingKey)) {
+        trackedServices.add(trackingKey);
 
         sendEvent('service_interest', {
-          service_name: serviceName
+          service_name: serviceName,
+          service_description: serviceDescription,
+          interaction_type: interactionType
         });
       }
     }
 
-    item.addEventListener('mouseenter', trackServiceInterest);
-    item.addEventListener('focus', trackServiceInterest);
+    item.addEventListener('mouseenter', function () {
+      trackServiceInterest('hover');
+    });
+
+    item.addEventListener('focus', function () {
+      trackServiceInterest('keyboard_focus');
+    });
+
+    item.addEventListener('click', function () {
+      trackServiceInterest('click');
+    });
   });
 
   // Obfuscated project inquiry email
