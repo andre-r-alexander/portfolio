@@ -358,6 +358,41 @@ function trackEvent(eventName, params = {}) {
   }
 }
 
+let meetAndreTimersStarted = false;
+let meetAndreTimerIds = [];
+
+function startMeetAndreTimers() {
+  if (meetAndreTimersStarted) return;
+
+  meetAndreTimersStarted = true;
+
+  const milestones = [
+    { seconds: 10, eventName: 'meet_andre_10_seconds' },
+    { seconds: 20, eventName: 'meet_andre_20_seconds' },
+    { seconds: 40, eventName: 'meet_andre_40_seconds' }
+  ];
+
+  milestones.forEach(milestone => {
+    const timerId = setTimeout(function () {
+      const aboutPanel = document.getElementById('aboutPanel');
+
+      if (aboutPanel && aboutPanel.style.display === 'block') {
+        trackEvent(milestone.eventName, {
+          seconds_open: milestone.seconds
+        });
+      }
+    }, milestone.seconds * 1000);
+
+    meetAndreTimerIds.push(timerId);
+  });
+}
+
+function resetMeetAndreTimers() {
+  meetAndreTimerIds.forEach(timerId => clearTimeout(timerId));
+  meetAndreTimerIds = [];
+  meetAndreTimersStarted = false;
+}
+
 function toggleServices() {
   const servicesList = document.getElementById('servicesList');
   const servicesButton = document.getElementById('servicesButton');
@@ -381,10 +416,12 @@ function toggleAbout() {
     aboutPanel.style.display = 'none';
     aboutButton.innerText = '▼ Meet Andre';
     trackEvent('meet_andre_collapse');
+    resetMeetAndreTimers();
   } else {
     aboutPanel.style.display = 'block';
     aboutButton.innerText = '▲ Meet Andre';
     trackEvent('meet_andre_expand');
+    startMeetAndreTimers();
   }
 }
 
