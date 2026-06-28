@@ -8,7 +8,7 @@
   gtag('js', new Date());
   gtag('config', 'G-MLFBPQRN84');
 </script>
-<script src="tracking.js?v=2" defer></script>
+<script src="tracking.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Andre R. Alexander, MD, MSHIA</title>
@@ -104,7 +104,11 @@ h1 {
   border-radius: 6px;
   margin-bottom: 6px;
   cursor: default;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+transition:
+    background-color .22s cubic-bezier(.25,.8,.25,1),
+    color .22s cubic-bezier(.25,.8,.25,1),
+    transform .22s cubic-bezier(.25,.8,.25,1),
+    box-shadow .22s cubic-bezier(.25,.8,.25,1);
 }
 
 .service-title {
@@ -129,7 +133,9 @@ h1 {
 .service-item:focus-within {
   background-color: #B0E0E6;
   color: #2c3e50;
-  transform: translateX(3px);
+  transform:
+    translateX(2px)
+    translateY(-1px);
 }
 
 .service-item:hover .service-title,
@@ -348,57 +354,112 @@ Physician with specialized training in psychiatry and CNS therapeutics. Combines
 </div>
 
 <script>
-/*
-  Lightweight fallback script:
-  - Keeps dropdowns working in HTML viewers or if tracking.js fails to load.
-  - On the live site, tracking.js will replace these functions with analytics-enabled versions.
-*/
+function trackEvent(eventName, params = {}) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, {
+      ...params,
+      source_page: window.location.pathname,
+      transport_type: 'beacon'
+    });
+  }
+}
 
-if (typeof window.toggleServices !== 'function') {
-  window.toggleServices = function () {
-    const servicesList = document.getElementById('servicesList');
-    const servicesButton = document.getElementById('servicesButton');
+let meetAndreTimersStarted = false;
+let meetAndreTimerIds = [];
 
-    if (!servicesList || !servicesButton) return;
+function startMeetAndreTimers() {
+  if (meetAndreTimersStarted) return;
 
-    if (servicesList.style.display === 'block') {
-      servicesList.style.display = 'none';
-      servicesButton.innerText = '▼ Freelancing Services';
-    } else {
-      servicesList.style.display = 'block';
-      servicesButton.innerText = '▲ Freelancing Services';
+  meetAndreTimersStarted = true;
+
+  const milestones = [
+    { seconds: 10, eventName: 'meet_andre_10_seconds' },
+    { seconds: 20, eventName: 'meet_andre_20_seconds' },
+    { seconds: 40, eventName: 'meet_andre_40_seconds' }
+  ];
+
+  milestones.forEach(milestone => {
+    const timerId = setTimeout(function () {
+      const aboutPanel = document.getElementById('aboutPanel');
+
+      if (aboutPanel && aboutPanel.style.display === 'block') {
+        trackEvent(milestone.eventName, {
+          seconds_open: milestone.seconds
+        });
+      }
+    }, milestone.seconds * 1000);
+
+    meetAndreTimerIds.push(timerId);
+  });
+}
+
+function resetMeetAndreTimers() {
+  meetAndreTimerIds.forEach(timerId => clearTimeout(timerId));
+  meetAndreTimerIds = [];
+  meetAndreTimersStarted = false;
+}
+
+function toggleServices() {
+  const servicesList = document.getElementById('servicesList');
+  const servicesButton = document.getElementById('servicesButton');
+
+  if (servicesList.style.display === 'block') {
+    servicesList.style.display = 'none';
+    servicesButton.innerText = '▼ Freelancing Services';
+    trackEvent('freelancing_services_collapse');
+  } else {
+    servicesList.style.display = 'block';
+    servicesButton.innerText = '▲ Freelancing Services';
+    trackEvent('freelancing_services_expand');
+  }
+}
+
+function toggleAbout() {
+  const aboutPanel = document.getElementById('aboutPanel');
+  const aboutButton = document.getElementById('aboutButton');
+
+  if (aboutPanel.style.display === 'block') {
+    aboutPanel.style.display = 'none';
+    aboutButton.innerText = '▼ Meet Andre';
+    trackEvent('meet_andre_collapse');
+    resetMeetAndreTimers();
+  } else {
+    aboutPanel.style.display = 'block';
+    aboutButton.innerText = '▲ Meet Andre';
+    trackEvent('meet_andre_expand');
+    startMeetAndreTimers();
+  }
+}
+
+function openProjectInquiry(event) {
+  event.preventDefault();
+  trackEvent('project_inquiry_click');
+
+  const user = 'andre';
+  const domain = 'andreralexander.com';
+  const subject = encodeURIComponent('Project inquiry');
+
+  window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
+}
+
+const trackedServices = new Set();
+
+document.querySelectorAll('.service-item').forEach(item => {
+  function trackServiceInterest() {
+    const serviceName = item.getAttribute('data-service');
+
+    if (!trackedServices.has(serviceName)) {
+      trackedServices.add(serviceName);
+
+      trackEvent('service_interest', {
+        service_name: serviceName
+      });
     }
-  };
-}
+  }
 
-if (typeof window.toggleAbout !== 'function') {
-  window.toggleAbout = function () {
-    const aboutPanel = document.getElementById('aboutPanel');
-    const aboutButton = document.getElementById('aboutButton');
-
-    if (!aboutPanel || !aboutButton) return;
-
-    if (aboutPanel.style.display === 'block') {
-      aboutPanel.style.display = 'none';
-      aboutButton.innerText = '▼ Meet Andre';
-    } else {
-      aboutPanel.style.display = 'block';
-      aboutButton.innerText = '▲ Meet Andre';
-    }
-  };
-}
-
-if (typeof window.openProjectInquiry !== 'function') {
-  window.openProjectInquiry = function (event) {
-    if (event) event.preventDefault();
-
-    const user = 'andre';
-    const domain = 'andreralexander.com';
-    const subject = encodeURIComponent('Project inquiry');
-
-    window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
-  };
-}
+  item.addEventListener('mouseenter', trackServiceInterest);
+  item.addEventListener('focus', trackServiceInterest);
+});
 </script>
 
 </body>
