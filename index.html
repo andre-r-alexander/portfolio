@@ -8,7 +8,7 @@
   gtag('js', new Date());
   gtag('config', 'G-MLFBPQRN84');
 </script>
-<script src="tracking.js"></script>
+<script src="tracking.js?v=2" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Andre R. Alexander, MD, MSHIA</title>
@@ -348,112 +348,57 @@ Physician with specialized training in psychiatry and CNS therapeutics. Combines
 </div>
 
 <script>
-function trackEvent(eventName, params = {}) {
-  if (typeof gtag === 'function') {
-    gtag('event', eventName, {
-      ...params,
-      source_page: window.location.pathname,
-      transport_type: 'beacon'
-    });
-  }
-}
+/*
+  Lightweight fallback script:
+  - Keeps dropdowns working in HTML viewers or if tracking.js fails to load.
+  - On the live site, tracking.js will replace these functions with analytics-enabled versions.
+*/
 
-let meetAndreTimersStarted = false;
-let meetAndreTimerIds = [];
+if (typeof window.toggleServices !== 'function') {
+  window.toggleServices = function () {
+    const servicesList = document.getElementById('servicesList');
+    const servicesButton = document.getElementById('servicesButton');
 
-function startMeetAndreTimers() {
-  if (meetAndreTimersStarted) return;
+    if (!servicesList || !servicesButton) return;
 
-  meetAndreTimersStarted = true;
-
-  const milestones = [
-    { seconds: 10, eventName: 'meet_andre_10_seconds' },
-    { seconds: 20, eventName: 'meet_andre_20_seconds' },
-    { seconds: 40, eventName: 'meet_andre_40_seconds' }
-  ];
-
-  milestones.forEach(milestone => {
-    const timerId = setTimeout(function () {
-      const aboutPanel = document.getElementById('aboutPanel');
-
-      if (aboutPanel && aboutPanel.style.display === 'block') {
-        trackEvent(milestone.eventName, {
-          seconds_open: milestone.seconds
-        });
-      }
-    }, milestone.seconds * 1000);
-
-    meetAndreTimerIds.push(timerId);
-  });
-}
-
-function resetMeetAndreTimers() {
-  meetAndreTimerIds.forEach(timerId => clearTimeout(timerId));
-  meetAndreTimerIds = [];
-  meetAndreTimersStarted = false;
-}
-
-function toggleServices() {
-  const servicesList = document.getElementById('servicesList');
-  const servicesButton = document.getElementById('servicesButton');
-
-  if (servicesList.style.display === 'block') {
-    servicesList.style.display = 'none';
-    servicesButton.innerText = '▼ Freelancing Services';
-    trackEvent('freelancing_services_collapse');
-  } else {
-    servicesList.style.display = 'block';
-    servicesButton.innerText = '▲ Freelancing Services';
-    trackEvent('freelancing_services_expand');
-  }
-}
-
-function toggleAbout() {
-  const aboutPanel = document.getElementById('aboutPanel');
-  const aboutButton = document.getElementById('aboutButton');
-
-  if (aboutPanel.style.display === 'block') {
-    aboutPanel.style.display = 'none';
-    aboutButton.innerText = '▼ Meet Andre';
-    trackEvent('meet_andre_collapse');
-    resetMeetAndreTimers();
-  } else {
-    aboutPanel.style.display = 'block';
-    aboutButton.innerText = '▲ Meet Andre';
-    trackEvent('meet_andre_expand');
-    startMeetAndreTimers();
-  }
-}
-
-function openProjectInquiry(event) {
-  event.preventDefault();
-  trackEvent('project_inquiry_click');
-
-  const user = 'andre';
-  const domain = 'andreralexander.com';
-  const subject = encodeURIComponent('Project inquiry');
-
-  window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
-}
-
-const trackedServices = new Set();
-
-document.querySelectorAll('.service-item').forEach(item => {
-  function trackServiceInterest() {
-    const serviceName = item.getAttribute('data-service');
-
-    if (!trackedServices.has(serviceName)) {
-      trackedServices.add(serviceName);
-
-      trackEvent('service_interest', {
-        service_name: serviceName
-      });
+    if (servicesList.style.display === 'block') {
+      servicesList.style.display = 'none';
+      servicesButton.innerText = '▼ Freelancing Services';
+    } else {
+      servicesList.style.display = 'block';
+      servicesButton.innerText = '▲ Freelancing Services';
     }
-  }
+  };
+}
 
-  item.addEventListener('mouseenter', trackServiceInterest);
-  item.addEventListener('focus', trackServiceInterest);
-});
+if (typeof window.toggleAbout !== 'function') {
+  window.toggleAbout = function () {
+    const aboutPanel = document.getElementById('aboutPanel');
+    const aboutButton = document.getElementById('aboutButton');
+
+    if (!aboutPanel || !aboutButton) return;
+
+    if (aboutPanel.style.display === 'block') {
+      aboutPanel.style.display = 'none';
+      aboutButton.innerText = '▼ Meet Andre';
+    } else {
+      aboutPanel.style.display = 'block';
+      aboutButton.innerText = '▲ Meet Andre';
+    }
+  };
+}
+
+if (typeof window.openProjectInquiry !== 'function') {
+  window.openProjectInquiry = function (event) {
+    if (event) event.preventDefault();
+
+    const user = 'andre';
+    const domain = 'andreralexander.com';
+    const subject = encodeURIComponent('Project inquiry');
+
+    window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
+  };
+}
 </script>
 
 </body>
