@@ -2,6 +2,25 @@ document.addEventListener('DOMContentLoaded', function () {
   if (typeof gtag !== 'function') return;
 
   const sourcePage = window.location.pathname;
+  const currentPage = window.location.pathname;
+  const pageTitle = document.title;
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  if (urlParams.get('developer') === 'true') {
+    localStorage.setItem('andre_developer_mode', 'true');
+  }
+
+  if (urlParams.get('developer') === 'false') {
+    localStorage.removeItem('andre_developer_mode');
+  }
+
+  const developerMode =
+    localStorage.getItem('andre_developer_mode') === 'true' ? 'true' : 'false';
+
+  gtag('set', 'user_properties', {
+    developer_mode: developerMode
+  });
 
   let lastPdfViewed = 'none';
   let lastPdfTitle = 'none';
@@ -10,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
     gtag('event', eventName, {
       ...params,
       source_page: sourcePage,
+      current_page: currentPage,
+      page_title: pageTitle,
+      developer_mode: developerMode,
       last_pdf_viewed: lastPdfViewed,
       last_pdf_title: lastPdfTitle,
       transport_type: 'beacon'
@@ -28,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return href.toLowerCase().split('?')[0].endsWith('.pdf');
   }
 
-  // Track all link clicks
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (event) {
       const href = link.getAttribute('href') || '';
@@ -93,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Freelancing services expand/collapse
   window.toggleServices = function () {
     const servicesList = document.getElementById('servicesList');
     const servicesButton = document.getElementById('servicesButton');
@@ -111,7 +131,60 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  // Track which services visitors explore
+  let meetAndreTimersStarted = false;
+  let meetAndreTimerIds = [];
+
+  function startMeetAndreTimers() {
+    if (meetAndreTimersStarted) return;
+
+    meetAndreTimersStarted = true;
+
+    const milestones = [
+      { seconds: 10, eventName: 'meet_andre_10_seconds' },
+      { seconds: 20, eventName: 'meet_andre_20_seconds' },
+      { seconds: 40, eventName: 'meet_andre_40_seconds' }
+    ];
+
+    milestones.forEach(milestone => {
+      const timerId = setTimeout(function () {
+        const aboutPanel = document.getElementById('aboutPanel');
+
+        if (aboutPanel && aboutPanel.style.display === 'block') {
+          sendEvent(milestone.eventName, {
+            seconds_open: milestone.seconds
+          });
+        }
+      }, milestone.seconds * 1000);
+
+      meetAndreTimerIds.push(timerId);
+    });
+  }
+
+  function resetMeetAndreTimers() {
+    meetAndreTimerIds.forEach(timerId => clearTimeout(timerId));
+    meetAndreTimerIds = [];
+    meetAndreTimersStarted = false;
+  }
+
+  window.toggleAbout = function () {
+    const aboutPanel = document.getElementById('aboutPanel');
+    const aboutButton = document.getElementById('aboutButton');
+
+    if (!aboutPanel || !aboutButton) return;
+
+    if (aboutPanel.style.display === 'block') {
+      aboutPanel.style.display = 'none';
+      aboutButton.innerText = '▼ Meet Andre';
+      sendEvent('meet_andre_collapse');
+      resetMeetAndreTimers();
+    } else {
+      aboutPanel.style.display = 'block';
+      aboutButton.innerText = '▲ Meet Andre';
+      sendEvent('meet_andre_expand');
+      startMeetAndreTimers();
+    }
+  };
+
   const trackedServices = new Set();
 
   document.querySelectorAll('.service-item').forEach(item => {
@@ -151,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Obfuscated project inquiry email
   window.openProjectInquiry = function (event) {
     if (event) event.preventDefault();
 
@@ -164,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
   };
 
-  // Track time-on-page milestones
   const timeMilestones = [
     { seconds: 10, eventName: 'time_10_seconds' },
     { seconds: 30, eventName: 'time_30_seconds' },
