@@ -8,7 +8,7 @@
   gtag('js', new Date());
   gtag('config', 'G-MLFBPQRN84');
 </script>
-<script src="tracking.js"></script>
+<script src="tracking.js?v=3" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Andre R. Alexander, MD, MSHIA</title>
@@ -62,6 +62,14 @@ h1 {
 .services-wrapper,
 .about-wrapper {
   width: 100%;
+}
+
+.services-wrapper {
+  height: 518px;
+}
+
+.services-wrapper.services-closed {
+  height: auto;
 }
 
 .about-wrapper {
@@ -268,6 +276,14 @@ h1 {
   .services-list,
   .about-panel { max-width: 92%; }
 
+.services-wrapper {
+  height: 555px;
+}
+
+.services-wrapper.services-closed {
+  height: auto;
+}
+
   .about-content {
     flex-direction: column;
     text-align: center;
@@ -292,7 +308,7 @@ Physician with specialized training in psychiatry and CNS therapeutics. Combines
 </div>
 
 <div class="dropdowns-wrapper">
-  <div class="services-wrapper">
+  <div class="services-wrapper services-closed">
     <button class="services-toggle" onclick="toggleServices()" id="servicesButton">
       ▼ Freelancing Services
     </button>
@@ -376,52 +392,44 @@ Physician with specialized training in psychiatry and CNS therapeutics. Combines
 </div>
 
 <script>
-function trackEvent(eventName, params = {}) {
-  if (typeof gtag === 'function') {
-    gtag('event', eventName, {
-      ...params,
-      source_page: window.location.pathname,
-      transport_type: 'beacon'
-    });
-  }
+if (typeof window.toggleServices !== 'function') {
+  window.toggleServices = function () {
+    const servicesList = document.getElementById('servicesList');
+    const servicesButton = document.getElementById('servicesButton');
+    const servicesWrapper = document.querySelector('.services-wrapper');
+
+    if (!servicesList || !servicesButton) return;
+
+    if (servicesList.style.display === 'block') {
+      servicesButton.innerText = '▼ Freelancing Services';
+      servicesWrapper?.classList.add('services-closed');
+      closeFallbackDropdown(servicesList);
+    } else {
+      servicesButton.innerText = '▲ Freelancing Services';
+      servicesWrapper?.classList.remove('services-closed');
+      openFallbackDropdown(servicesList);
+    }
+  };
 }
 
-let meetAndreTimersStarted = false;
-let meetAndreTimerIds = [];
+if (typeof window.toggleAbout !== 'function') {
+  window.toggleAbout = function () {
+    const aboutPanel = document.getElementById('aboutPanel');
+    const aboutButton = document.getElementById('aboutButton');
 
-function startMeetAndreTimers() {
-  if (meetAndreTimersStarted) return;
+    if (!aboutPanel || !aboutButton) return;
 
-  meetAndreTimersStarted = true;
-
-  const milestones = [
-    { seconds: 10, eventName: 'meet_andre_10_seconds' },
-    { seconds: 20, eventName: 'meet_andre_20_seconds' },
-    { seconds: 40, eventName: 'meet_andre_40_seconds' }
-  ];
-
-  milestones.forEach(milestone => {
-    const timerId = setTimeout(function () {
-      const aboutPanel = document.getElementById('aboutPanel');
-
-      if (aboutPanel && aboutPanel.style.display === 'block') {
-        trackEvent(milestone.eventName, {
-          seconds_open: milestone.seconds
-        });
-      }
-    }, milestone.seconds * 1000);
-
-    meetAndreTimerIds.push(timerId);
-  });
+    if (aboutPanel.style.display === 'block') {
+      aboutButton.innerText = '▼ Meet Andre';
+      closeFallbackDropdown(aboutPanel);
+    } else {
+      aboutButton.innerText = '▲ Meet Andre';
+      openFallbackDropdown(aboutPanel);
+    }
+  };
 }
 
-function resetMeetAndreTimers() {
-  meetAndreTimerIds.forEach(timerId => clearTimeout(timerId));
-  meetAndreTimerIds = [];
-  meetAndreTimersStarted = false;
-}
-
-function openDropdown(panel) {
+function openFallbackDropdown(panel) {
   panel.style.display = 'block';
 
   requestAnimationFrame(function () {
@@ -429,82 +437,25 @@ function openDropdown(panel) {
   });
 }
 
-function closeDropdown(panel, callback) {
+function closeFallbackDropdown(panel) {
   panel.classList.remove('dropdown-open');
 
   setTimeout(function () {
     panel.style.display = 'none';
-    if (typeof callback === 'function') callback();
   }, 150);
 }
 
-function toggleServices() {
-  const servicesList = document.getElementById('servicesList');
-  const servicesButton = document.getElementById('servicesButton');
+if (typeof window.openProjectInquiry !== 'function') {
+  window.openProjectInquiry = function (event) {
+    if (event) event.preventDefault();
 
-  if (!servicesList || !servicesButton) return;
+    const user = 'andre';
+    const domain = 'andreralexander.com';
+    const subject = encodeURIComponent('Project inquiry');
 
-  if (servicesList.style.display === 'block') {
-    servicesButton.innerText = '▼ Freelancing Services';
-    trackEvent('freelancing_services_collapse');
-    closeDropdown(servicesList);
-  } else {
-    servicesButton.innerText = '▲ Freelancing Services';
-    trackEvent('freelancing_services_expand');
-    openDropdown(servicesList);
-  }
+    window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
+  };
 }
-
-function toggleAbout() {
-  const aboutPanel = document.getElementById('aboutPanel');
-  const aboutButton = document.getElementById('aboutButton');
-
-  if (!aboutPanel || !aboutButton) return;
-
-  if (aboutPanel.style.display === 'block') {
-    aboutButton.innerText = '▼ Meet Andre';
-    trackEvent('meet_andre_collapse');
-
-    closeDropdown(aboutPanel, function () {
-      resetMeetAndreTimers();
-    });
-  } else {
-    aboutButton.innerText = '▲ Meet Andre';
-    trackEvent('meet_andre_expand');
-    openDropdown(aboutPanel);
-    startMeetAndreTimers();
-  }
-}
-
-function openProjectInquiry(event) {
-  event.preventDefault();
-  trackEvent('project_inquiry_click');
-
-  const user = 'andre';
-  const domain = 'andreralexander.com';
-  const subject = encodeURIComponent('Project inquiry');
-
-  window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
-}
-
-const trackedServices = new Set();
-
-document.querySelectorAll('.service-item').forEach(item => {
-  function trackServiceInterest() {
-    const serviceName = item.getAttribute('data-service');
-
-    if (!trackedServices.has(serviceName)) {
-      trackedServices.add(serviceName);
-
-      trackEvent('service_interest', {
-        service_name: serviceName
-      });
-    }
-  }
-
-  item.addEventListener('mouseenter', trackServiceInterest);
-  item.addEventListener('focus', trackServiceInterest);
-});
 </script>
 
 </body>
