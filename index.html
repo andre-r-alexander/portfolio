@@ -53,13 +53,23 @@ h1 {
   line-height: 1.5;
 }
 
-.services-wrapper {
+.dropdowns-wrapper {
   margin-bottom: 2rem;
   max-width: 680px;
   width: 100%;
 }
 
-.services-toggle {
+.services-wrapper,
+.about-wrapper {
+  width: 100%;
+}
+
+.about-wrapper {
+  margin-top: 0.35rem;
+}
+
+.services-toggle,
+.about-toggle {
   background: none;
   border: none;
   color: #B0E0E6;
@@ -70,12 +80,15 @@ h1 {
 }
 
 .services-toggle:hover,
-.services-toggle:focus {
+.services-toggle:focus,
+.about-toggle:hover,
+.about-toggle:focus {
   color: #9bd3d9;
   outline: none;
 }
 
-.services-list {
+.services-list,
+.about-panel {
   display: none;
   margin: 12px auto 0;
   padding: 15px;
@@ -131,6 +144,55 @@ h1 {
   margin-top: 6px;
 }
 
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.about-headshot-wrap {
+  width: 155px;
+  height: 155px;
+  flex-shrink: 0;
+  background-color: #34495e;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.about-headshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  background-color: #34495e;
+
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 52%,
+    rgba(0, 0, 0, 0.85) 66%,
+    rgba(0, 0, 0, 0.35) 82%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 52%,
+    rgba(0, 0, 0, 0.85) 66%,
+    rgba(0, 0, 0, 0.35) 82%,
+    transparent 100%
+  );
+}
+
+.about-text {
+  color: #f2f7f8;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.about-text p {
+  margin: 0;
+}
+
 .button-container {
   display: flex;
   gap: 20px;
@@ -175,7 +237,18 @@ h1 {
   h1 { font-size: 2rem; }
   .title-line { font-size: 1.2rem; }
   .subtitle { font-size: 1rem; }
-  .services-list { max-width: 92%; }
+  .services-list,
+  .about-panel { max-width: 92%; }
+
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-headshot-wrap {
+    width: 165px;
+    height: 165px;
+  }
 }
 </style>
 </head>
@@ -190,55 +263,76 @@ h1 {
 Physician with specialized training in psychiatry and CNS therapeutics. Combines clinical expertise with advanced health informatics training to translate complex clinical evidence into compelling, evidence-based medical communications.
 </div>
 
-<div class="services-wrapper">
-  <button class="services-toggle" onclick="toggleServices()" id="servicesButton">
-    ▼ Freelancing Services
-  </button>
+<div class="dropdowns-wrapper">
+  <div class="services-wrapper">
+    <button class="services-toggle" onclick="toggleServices()" id="servicesButton">
+      ▼ Freelancing Services
+    </button>
 
-  <div class="services-list" id="servicesList">
-    <div class="service-item" tabindex="0" data-service="Medical Writing">
-      <span class="service-title">Medical Writing</span>
-      <span class="service-description">Development of scientifically accurate, evidence-based content for professional and public audiences.</span>
+    <div class="services-list" id="servicesList">
+      <div class="service-item" tabindex="0" data-service="Medical Writing">
+        <span class="service-title">Medical Writing</span>
+        <span class="service-description">Development of scientifically accurate, evidence-based content for professional and public audiences.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Literature Reviews">
+        <span class="service-title">Literature Reviews</span>
+        <span class="service-description">Targeted review and synthesis of clinical literature, guidelines, and scientific evidence.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Evidence Synthesis">
+        <span class="service-title">Evidence Synthesis</span>
+        <span class="service-description">Clear summaries of complex data to support scientific communication, education, and strategy.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Scientific Slide Decks">
+        <span class="service-title">Scientific Slide Decks</span>
+        <span class="service-description">Structured slide presentations for medical education, internal training, and scientific storytelling.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Medical Editing">
+        <span class="service-title">Medical Editing</span>
+        <span class="service-description">Editing for clarity, accuracy, organization, consistency, and audience-appropriate scientific communication.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Patient Education Materials">
+        <span class="service-title">Patient Education Materials</span>
+        <span class="service-description">Accessible content that translates complex medical concepts into clear language for patients and caregivers.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Executive Summaries">
+        <span class="service-title">Executive Summaries</span>
+        <span class="service-description">Concise, high-level summaries of clinical evidence, therapeutic landscapes, and scientific insights.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Advisory Board Reports">
+        <span class="service-title">Advisory Board Reports</span>
+        <span class="service-description">Structured summaries of expert discussion themes, clinical insights, and strategic implications.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Scientific Strategy Support">
+        <span class="service-title">Scientific Strategy Support</span>
+        <span class="service-description">Support for positioning scientific information, organizing key messages, and communicating evidence effectively.</span>
+      </div>
     </div>
+  </div>
 
-    <div class="service-item" tabindex="0" data-service="Literature Reviews">
-      <span class="service-title">Literature Reviews</span>
-      <span class="service-description">Targeted review and synthesis of clinical literature, guidelines, and scientific evidence.</span>
-    </div>
+  <div class="about-wrapper">
+    <button class="about-toggle" onclick="toggleAbout()" id="aboutButton">
+      ▼ Meet Andre
+    </button>
 
-    <div class="service-item" tabindex="0" data-service="Evidence Synthesis">
-      <span class="service-title">Evidence Synthesis</span>
-      <span class="service-description">Clear summaries of complex data to support scientific communication, education, and strategy.</span>
-    </div>
-
-    <div class="service-item" tabindex="0" data-service="Scientific Slide Decks">
-      <span class="service-title">Scientific Slide Decks</span>
-      <span class="service-description">Structured slide presentations for medical education, internal training, and scientific storytelling.</span>
-    </div>
-
-    <div class="service-item" tabindex="0" data-service="Medical Editing">
-      <span class="service-title">Medical Editing</span>
-      <span class="service-description">Editing for clarity, accuracy, organization, consistency, and audience-appropriate scientific communication.</span>
-    </div>
-
-    <div class="service-item" tabindex="0" data-service="Patient Education Materials">
-      <span class="service-title">Patient Education Materials</span>
-      <span class="service-description">Accessible content that translates complex medical concepts into clear language for patients and caregivers.</span>
-    </div>
-
-    <div class="service-item" tabindex="0" data-service="Executive Summaries">
-      <span class="service-title">Executive Summaries</span>
-      <span class="service-description">Concise, high-level summaries of clinical evidence, therapeutic landscapes, and scientific insights.</span>
-    </div>
-
-    <div class="service-item" tabindex="0" data-service="Advisory Board Reports">
-      <span class="service-title">Advisory Board Reports</span>
-      <span class="service-description">Structured summaries of expert discussion themes, clinical insights, and strategic implications.</span>
-    </div>
-
-    <div class="service-item" tabindex="0" data-service="Scientific Strategy Support">
-      <span class="service-title">Scientific Strategy Support</span>
-      <span class="service-description">Support for positioning scientific information, organizing key messages, and communicating evidence effectively.</span>
+    <div class="about-panel" id="aboutPanel">
+      <div class="about-content">
+        <div class="about-headshot-wrap">
+          <img src="https://andreralexander.com/headshot.png" alt="Andre R. Alexander" class="about-headshot">
+        </div>
+        <div class="about-text">
+          <p>
+            A Central Florida native, Andre combines medical training with graduate education in health informatics to help clients communicate complex science clearly. He has always enjoyed blending science and storytelling—from co-hosting a college radio show to serving as the narrator in his medical school's production of <em>Beauty and the Beast</em>. When he's away from his computer, he's usually playing basketball, playing dominoes, cheering on the Orlando Magic, or taking in stand-up comedy.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -276,6 +370,21 @@ function toggleServices() {
     servicesList.style.display = 'block';
     servicesButton.innerText = '▲ Freelancing Services';
     trackEvent('freelancing_services_expand');
+  }
+}
+
+function toggleAbout() {
+  const aboutPanel = document.getElementById('aboutPanel');
+  const aboutButton = document.getElementById('aboutButton');
+
+  if (aboutPanel.style.display === 'block') {
+    aboutPanel.style.display = 'none';
+    aboutButton.innerText = '▼ Meet Andre';
+    trackEvent('meet_andre_collapse');
+  } else {
+    aboutPanel.style.display = 'block';
+    aboutButton.innerText = '▲ Meet Andre';
+    trackEvent('meet_andre_expand');
   }
 }
 
