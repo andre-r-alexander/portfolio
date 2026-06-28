@@ -50,6 +50,23 @@ document.addEventListener('DOMContentLoaded', function () {
     return href.toLowerCase().split('?')[0].endsWith('.pdf');
   }
 
+  function openDropdown(panel) {
+    panel.style.display = 'block';
+
+    requestAnimationFrame(function () {
+      panel.classList.add('dropdown-open');
+    });
+  }
+
+  function closeDropdown(panel, callback) {
+    panel.classList.remove('dropdown-open');
+
+    setTimeout(function () {
+      panel.style.display = 'none';
+      if (typeof callback === 'function') callback();
+    }, 150);
+  }
+
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (event) {
       const href = link.getAttribute('href') || '';
@@ -117,17 +134,20 @@ document.addEventListener('DOMContentLoaded', function () {
   window.toggleServices = function () {
     const servicesList = document.getElementById('servicesList');
     const servicesButton = document.getElementById('servicesButton');
+    const servicesWrapper = document.querySelector('.services-wrapper');
 
     if (!servicesList || !servicesButton) return;
 
     if (servicesList.style.display === 'block') {
-      servicesList.style.display = 'none';
       servicesButton.innerText = '▼ Freelancing Services';
+      servicesWrapper?.classList.add('services-closed');
       sendEvent('freelancing_services_collapse');
+      closeDropdown(servicesList);
     } else {
-      servicesList.style.display = 'block';
       servicesButton.innerText = '▲ Freelancing Services';
+      servicesWrapper?.classList.remove('services-closed');
       sendEvent('freelancing_services_expand');
+      openDropdown(servicesList);
     }
   };
 
@@ -173,14 +193,16 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!aboutPanel || !aboutButton) return;
 
     if (aboutPanel.style.display === 'block') {
-      aboutPanel.style.display = 'none';
       aboutButton.innerText = '▼ Meet Andre';
       sendEvent('meet_andre_collapse');
-      resetMeetAndreTimers();
+
+      closeDropdown(aboutPanel, function () {
+        resetMeetAndreTimers();
+      });
     } else {
-      aboutPanel.style.display = 'block';
       aboutButton.innerText = '▲ Meet Andre';
       sendEvent('meet_andre_expand');
+      openDropdown(aboutPanel);
       startMeetAndreTimers();
     }
   };
