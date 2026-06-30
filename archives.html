@@ -18,6 +18,62 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
   
 <style>
+
+.sticky-identity {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+
+  background-color: #2c3e50;
+  backdrop-filter: none;
+
+  padding: 8px 15px 9px;
+  box-sizing: border-box;
+  text-align: center;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.sticky-identity.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sticky-name {
+  color: white;
+  font-weight: bold;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.sticky-title {
+  color: #B0E0E6;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+@media (max-width: 600px) {
+  .sticky-name {
+    font-size: 0.82rem;
+  }
+
+  .sticky-title {
+    font-size: 0.7rem;
+  }
+}
+
 body {
   background-color: #2c3e50;
   color: white;
@@ -129,6 +185,12 @@ body {
 </head>
 
 <body>
+    
+<div class="sticky-identity" id="stickyIdentity">
+  <div class="sticky-name">Andre R. Alexander, MD, MSHIA</div>
+  <div class="sticky-title">Medical Communications & Scientific Strategy</div>
+</div>
+    
 <div class="container">
 <h2>Academic & Research Archives</h2>
 <p class="archive-subtitle">Select historical research posters and presentations from early academic training.</p>
@@ -155,5 +217,20 @@ body {
 <a href="portfolio.html">← Back to Portfolio Samples</a>
 </div>
 </div>
+
+<script>
+const stickyIdentity = document.getElementById('stickyIdentity');
+
+window.addEventListener('scroll', function () {
+  if (!stickyIdentity) return;
+
+  if (window.scrollY > 120) {
+    stickyIdentity.classList.add('visible');
+  } else {
+    stickyIdentity.classList.remove('visible');
+  }
+});
+</script>
+
 </body>
 </html>
