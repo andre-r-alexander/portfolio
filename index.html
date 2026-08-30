@@ -371,19 +371,24 @@ h1 {
 <div class="subtitle">Psychiatry & CNS Therapeutics</div>
 
 <div class="description">
-Physician with specialized training in psychiatry and CNS therapeutics. Combines clinical expertise with advanced health informatics training to translate complex clinical evidence into compelling, evidence-based medical communications.
+Physician and medical consultant with specialized training in psychiatry and CNS therapeutics. Combines clinical expertise with advanced health informatics training to translate complex clinical evidence into clear, evidence-based medical communications and scientific insights.
 </div>
 
 <div class="dropdowns-wrapper">
   <div class="services-wrapper services-closed">
     <button class="services-toggle" onclick="toggleServices()" id="servicesButton">
-      ▼ Freelancing Services
+      ▼ Consulting & Medical Writing Services
     </button>
 
     <div class="services-list" id="servicesList">
       <div class="service-item" tabindex="0" data-service="Medical Writing">
         <span class="service-title">Medical Writing</span>
         <span class="service-description">Development of scientifically accurate, evidence-based content for professional and public audiences.</span>
+      </div>
+
+      <div class="service-item" tabindex="0" data-service="Medical Writing">
+        <span class="service-title">Clinical & Scientific Review</span>
+        <span class="service-description">Clinical review of medical, educational, and scientific content for accuracy, completeness, credibility, and appropriate communication.</span>
       </div>
 
       <div class="service-item" tabindex="0" data-service="Literature Reviews">
@@ -468,11 +473,11 @@ if (typeof window.toggleServices !== 'function') {
     if (!servicesList || !servicesButton) return;
 
     if (servicesList.style.display === 'block') {
-      servicesButton.innerText = '▼ Freelancing Services';
+      servicesButton.innerText = '▼ Consulting & Medical Writing Services';
       servicesWrapper?.classList.add('services-closed');
       closeFallbackDropdown(servicesList);
     } else {
-      servicesButton.innerText = '▲ Freelancing Services';
+      servicesButton.innerText = '▲ Consulting & Medical Writing Services';
       servicesWrapper?.classList.remove('services-closed');
       openFallbackDropdown(servicesList);
     }
