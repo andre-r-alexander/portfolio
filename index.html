@@ -23,6 +23,11 @@
 
 <style>
 
+
+/* --------------------------------------------------------
+   STICKY IDENTITY HEADER
+-------------------------------------------------------- */
+
 .sticky-identity {
   position: fixed;
   top: 0;
@@ -31,7 +36,6 @@
   z-index: 999;
 
   background-color: #2c3e50;
-  backdrop-filter: none;
 
   padding: 8px 15px 9px;
   box-sizing: border-box;
@@ -69,6 +73,7 @@
 }
 
 @media (max-width: 600px) {
+
   .sticky-name {
     font-size: 0.82rem;
   }
@@ -77,7 +82,13 @@
     font-size: 0.68rem;
     line-height: 1.25;
   }
+
 }
+
+
+/* --------------------------------------------------------
+   PAGE
+-------------------------------------------------------- */
 
 body {
   background-color: #2c3e50;
@@ -117,6 +128,11 @@ h1 {
   margin-bottom: 1.25rem;
   line-height: 1.5;
 }
+
+
+/* --------------------------------------------------------
+   DROPDOWNS
+-------------------------------------------------------- */
 
 .dropdowns-wrapper {
   margin-bottom: 2rem;
@@ -183,6 +199,11 @@ h1 {
   transform: translateY(0);
 }
 
+
+/* --------------------------------------------------------
+   SERVICES
+-------------------------------------------------------- */
+
 .service-item {
   padding: 10px 12px;
   border-radius: 6px;
@@ -240,6 +261,11 @@ h1 {
   margin-top: 6px;
 }
 
+
+/* --------------------------------------------------------
+   ABOUT
+-------------------------------------------------------- */
+
 .about-content {
   display: flex;
   align-items: center;
@@ -263,7 +289,9 @@ h1 {
   display: block;
   background-color: #34495e;
   opacity: 0;
-  transition: opacity 0.25s ease;
+
+  transition:
+    opacity 0.25s ease;
 
   -webkit-mask-image: radial-gradient(
     ellipse at center,
@@ -295,6 +323,11 @@ h1 {
 .about-text p {
   margin: 0;
 }
+
+
+/* --------------------------------------------------------
+   MAIN BUTTONS
+-------------------------------------------------------- */
 
 .button-container {
   display: flex;
@@ -332,7 +365,9 @@ h1 {
 }
 
 
-/* Resume selector */
+/* --------------------------------------------------------
+   RESUME SELECTOR
+-------------------------------------------------------- */
 
 .resume-wrapper {
   position: relative;
@@ -342,19 +377,31 @@ h1 {
 .resume-menu {
   display: none;
   position: absolute;
+
   top: calc(100% + 10px);
   left: 50%;
-  transform: translateX(-50%) translateY(-5px);
+
+  transform:
+    translateX(-50%)
+    translateY(-5px);
+
   width: 285px;
   box-sizing: border-box;
 
   background-color: #34495e;
-  border: 1px solid rgba(176, 224, 230, 0.35);
+
+  border:
+    1px solid
+    rgba(176, 224, 230, 0.35);
+
   border-radius: 7px;
-  box-shadow: 0 5px 16px rgba(0,0,0,.22);
+
+  box-shadow:
+    0 5px 16px
+    rgba(0,0,0,.22);
 
   padding: 8px;
-  z-index: 50;
+  z-index: 1000;
 
   opacity: 0;
 
@@ -366,7 +413,10 @@ h1 {
 .resume-menu.open {
   display: block;
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
 
 .resume-option {
@@ -383,7 +433,9 @@ h1 {
 
 .resume-option:hover,
 .resume-option:focus {
-  background-color: rgba(176, 224, 230, 0.12);
+  background-color:
+    rgba(176, 224, 230, 0.12);
+
   outline: none;
   transform: translateX(2px);
 }
@@ -405,9 +457,17 @@ h1 {
 
 .resume-divider {
   height: 1px;
-  background-color: rgba(255,255,255,0.09);
+
+  background-color:
+    rgba(255,255,255,0.09);
+
   margin: 3px 8px;
 }
+
+
+/* --------------------------------------------------------
+   PROJECT CTA
+-------------------------------------------------------- */
 
 .project-cta {
   font-size: 0.95rem;
@@ -418,7 +478,10 @@ h1 {
   color: #B0E0E6;
   font-weight: bold;
   text-decoration: none;
-  border-bottom: 1px solid rgba(176, 224, 230, 0.6);
+
+  border-bottom:
+    1px solid
+    rgba(176, 224, 230, 0.6);
 }
 
 .project-cta a:hover,
@@ -427,6 +490,11 @@ h1 {
   border-bottom-color: #9bd3d9;
   outline: none;
 }
+
+
+/* --------------------------------------------------------
+   MOBILE
+-------------------------------------------------------- */
 
 @media (max-width: 600px) {
 
@@ -468,17 +536,22 @@ h1 {
   .resume-menu {
     width: 270px;
   }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
 
-<!-- Sticky identity header -->
+<!-- Sticky universal professional identity -->
 
-<div class="sticky-identity" id="stickyIdentity">
+<div
+  class="sticky-identity"
+  id="stickyIdentity"
+>
 
   <div class="sticky-name">
     Andre R. Alexander, MD, MSHIA
@@ -509,9 +582,13 @@ h1 {
 <!-- Professional summary -->
 
 <div class="description">
+
   Physician with advanced training in psychiatry and an MS in Health Informatics and Analytics, combining clinical reasoning, informatics, and scientific communication to translate complex healthcare information into clear, structured, actionable insights. Particularly interested in the application of clinical expertise to AI-enabled healthcare, decision support, and healthcare technology.
+
 </div>
 
+
+<!-- Dropdown sections -->
 
 <div class="dropdowns-wrapper">
 
@@ -729,6 +806,7 @@ h1 {
 
       <div class="about-content">
 
+
         <div class="about-headshot-wrap">
 
           <img
@@ -792,6 +870,9 @@ h1 {
       id="resumeMenu"
     >
 
+
+      <!-- Clinical AI / Informatics -->
+
       <a
         href="Andre_Alexander_AI_Informatics_Resume.pdf"
         class="resume-option"
@@ -812,6 +893,8 @@ h1 {
 
       <div class="resume-divider"></div>
 
+
+      <!-- Medical Communications -->
 
       <a
         href="Andre_Alexander_Resume_Public.pdf"
@@ -849,7 +932,7 @@ h1 {
 </div>
 
 
-<!-- Contact -->
+<!-- Project inquiry -->
 
 <div class="project-cta">
 
@@ -868,15 +951,13 @@ h1 {
 <script>
 
 
-/*
- * --------------------------------------------------------
- * FALLBACK SERVICES DROPDOWN
- * --------------------------------------------------------
- *
- * tracking.js normally replaces window.toggleServices
- * after DOMContentLoaded. This fallback keeps the page
- * functional if tracking.js ever fails to load.
- */
+/* --------------------------------------------------------
+   FALLBACK SERVICES DROPDOWN
+
+   tracking.js normally supplies the analytics-enabled
+   version. This fallback keeps the page functional if
+   tracking.js does not load.
+-------------------------------------------------------- */
 
 if (typeof window.toggleServices !== 'function') {
 
@@ -927,11 +1008,9 @@ if (typeof window.toggleServices !== 'function') {
 }
 
 
-/*
- * --------------------------------------------------------
- * FALLBACK ABOUT DROPDOWN
- * --------------------------------------------------------
- */
+/* --------------------------------------------------------
+   FALLBACK ABOUT DROPDOWN
+-------------------------------------------------------- */
 
 if (typeof window.toggleAbout !== 'function') {
 
@@ -971,11 +1050,78 @@ if (typeof window.toggleAbout !== 'function') {
 }
 
 
-/*
- * --------------------------------------------------------
- * FALLBACK DROPDOWN HELPERS
- * --------------------------------------------------------
- */
+/* --------------------------------------------------------
+   FALLBACK RESUME SELECTOR
+
+   tracking.js supplies the analytics-enabled version on
+   the live site. This fallback allows the menu to work
+   in standalone HTML viewers too.
+-------------------------------------------------------- */
+
+if (typeof window.toggleResumeMenu !== 'function') {
+
+  window.toggleResumeMenu = function (event) {
+
+    if (event) {
+      event.stopPropagation();
+    }
+
+    const resumeMenu =
+      document.getElementById('resumeMenu');
+
+    const resumeButton =
+      document.getElementById('resumeButton');
+
+    if (!resumeMenu || !resumeButton) return;
+
+    const isOpen =
+      resumeMenu.classList.contains('open');
+
+
+    if (isOpen) {
+
+      resumeMenu.classList.remove('open');
+
+      setTimeout(function () {
+
+        if (
+          !resumeMenu.classList.contains('open')
+        ) {
+          resumeMenu.style.display = 'none';
+        }
+
+      }, 150);
+
+      resumeButton.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
+    } else {
+
+      resumeMenu.style.display = 'block';
+
+      requestAnimationFrame(function () {
+
+        resumeMenu.classList.add('open');
+
+      });
+
+      resumeButton.setAttribute(
+        'aria-expanded',
+        'true'
+      );
+
+    }
+
+  };
+
+}
+
+
+/* --------------------------------------------------------
+   FALLBACK DROPDOWN HELPERS
+-------------------------------------------------------- */
 
 function openFallbackDropdown(panel) {
 
@@ -1014,24 +1160,20 @@ function closeFallbackDropdown(panel) {
 }
 
 
-/*
- * --------------------------------------------------------
- * STICKY IDENTITY HEADER
- * --------------------------------------------------------
- */
+/* --------------------------------------------------------
+   STICKY IDENTITY HEADER
+-------------------------------------------------------- */
 
 const stickyIdentity =
   document.getElementById(
     'stickyIdentity'
   );
 
-
 window.addEventListener(
   'scroll',
   function () {
 
     if (!stickyIdentity) return;
-
 
     if (window.scrollY > 245) {
 
@@ -1050,8 +1192,8 @@ window.addEventListener(
   }
 );
 
-
 </script>
+
 
 </body>
 </html>
