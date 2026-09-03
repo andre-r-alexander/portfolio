@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLFBPQRN84"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -8,16 +9,24 @@
   gtag('js', new Date());
   gtag('config', 'G-MLFBPQRN84');
 </script>
+
 <script src="tracking.js?v=3" defer></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Research Archives | Andre R. Alexander</title>
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-  
+
 <style>
+
+
+/* --------------------------------------------------------
+   STICKY IDENTITY HEADER
+-------------------------------------------------------- */
 
 .sticky-identity {
   position: fixed;
@@ -27,7 +36,6 @@
   z-index: 999;
 
   background-color: #2c3e50;
-  backdrop-filter: none;
 
   padding: 8px 15px 9px;
   box-sizing: border-box;
@@ -60,24 +68,33 @@
 .sticky-title {
   color: #B0E0E6;
   font-size: 0.78rem;
-  line-height: 1.2;
+  line-height: 1.25;
   margin-top: 2px;
 }
 
 @media (max-width: 600px) {
+
   .sticky-name {
     font-size: 0.82rem;
   }
 
   .sticky-title {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
+
 }
+
+
+/* --------------------------------------------------------
+   PAGE
+-------------------------------------------------------- */
 
 body {
   background-color: #2c3e50;
   color: white;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
   padding-bottom: 50px;
   margin: 0;
 }
@@ -99,6 +116,11 @@ body {
   line-height: 1.5;
 }
 
+
+/* --------------------------------------------------------
+   ARCHIVE ITEMS
+-------------------------------------------------------- */
+
 .archive-item {
   background: #34495e;
   padding: 20px;
@@ -106,6 +128,7 @@ body {
   border-radius: 8px;
   border-left: 5px solid #7f8c8d;
   word-wrap: break-word;
+
   transition:
     transform .22s cubic-bezier(.25,.8,.25,1),
     box-shadow .22s cubic-bezier(.25,.8,.25,1),
@@ -128,6 +151,11 @@ body {
   line-height: 1.5;
 }
 
+
+/* --------------------------------------------------------
+   ARCHIVE PDF BUTTONS
+-------------------------------------------------------- */
+
 .btn {
   background-color: #7f8c8d;
   color: white;
@@ -138,7 +166,11 @@ body {
   display: inline-block;
   margin-top: 10px;
   cursor: pointer;
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
   -webkit-tap-highlight-color: transparent;
+
   transition:
     background-color .18s ease,
     transform .18s ease,
@@ -153,6 +185,11 @@ body {
   outline: none;
 }
 
+
+/* --------------------------------------------------------
+   BACK TO PORTFOLIO
+-------------------------------------------------------- */
+
 .back-to-portfolio {
   text-align: center;
   margin-top: 42px;
@@ -163,6 +200,7 @@ body {
   text-decoration: none;
   font-weight: bold;
   border-bottom: 1px solid rgba(176, 224, 230, 0.45);
+
   transition:
     color .18s ease,
     border-bottom-color .18s ease;
@@ -175,62 +213,547 @@ body {
   outline: none;
 }
 
-.note {
-  font-size: 0.85em;
-  color: #bdc3c7;
-  margin-top: 10px;
-  font-style: italic;
+
+/* --------------------------------------------------------
+   FOOTER
+-------------------------------------------------------- */
+
+.footer-nav {
+  margin-top: 50px;
+  padding: 20px 20px 10px;
+  border-top: 1px solid #4a657e;
+  text-align: center;
 }
+
+.footer-nav > a,
+.footer-nav > .resume-wrapper {
+  margin: 0 15px;
+}
+
+.footer-nav a {
+  color: #B0E0E6;
+  text-decoration: none;
+
+  transition:
+    color .18s ease;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus {
+  color: #9bd3d9;
+  outline: none;
+}
+
+.footer-separator {
+  color: #7f8c8d;
+}
+
+
+/* --------------------------------------------------------
+   RESUME SELECTOR
+-------------------------------------------------------- */
+
+.resume-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.resume-trigger {
+  background: none;
+  border: none;
+  color: #B0E0E6;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+
+  transition:
+    color .18s ease;
+}
+
+.resume-trigger:hover,
+.resume-trigger:focus {
+  color: #9bd3d9;
+  outline: none;
+}
+
+.resume-menu {
+  display: none;
+  position: absolute;
+
+  bottom: calc(100% + 10px);
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    translateY(5px);
+
+  width: 285px;
+  box-sizing: border-box;
+
+  background-color: #34495e;
+
+  border:
+    1px solid
+    rgba(176, 224, 230, 0.35);
+
+  border-radius: 7px;
+
+  box-shadow:
+    0 5px 16px
+    rgba(0,0,0,.22);
+
+  padding: 8px;
+  z-index: 1000;
+
+  opacity: 0;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.resume-menu.open {
+  display: block;
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+.resume-option {
+  display: block;
+  text-align: left;
+  padding: 11px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+
+  transition:
+    background-color .18s ease,
+    transform .18s ease;
+}
+
+.resume-option:hover,
+.resume-option:focus {
+  background-color:
+    rgba(176, 224, 230, 0.12);
+
+  outline: none;
+  transform: translateX(2px);
+}
+
+.resume-option-title {
+  display: block;
+  color: #B0E0E6;
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+}
+
+.resume-option-description {
+  display: block;
+  color: #e5eef0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.resume-divider {
+  height: 1px;
+  background-color:
+    rgba(255,255,255,0.09);
+
+  margin: 3px 8px;
+}
+
+
+/* --------------------------------------------------------
+   PROJECT CTA
+-------------------------------------------------------- */
+
+.project-cta {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #dce8ec;
+  margin-top: 8px;
+}
+
+.project-cta a {
+  color: #B0E0E6;
+  font-weight: bold;
+  text-decoration: none;
+
+  border-bottom:
+    1px solid
+    rgba(176, 224, 230, 0.6);
+
+  transition:
+    color .18s ease,
+    border-bottom-color .18s ease;
+}
+
+.project-cta a:hover,
+.project-cta a:focus {
+  color: #9bd3d9;
+  border-bottom-color: #9bd3d9;
+  outline: none;
+}
+
+
+/* --------------------------------------------------------
+   MOBILE
+-------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .footer-nav > a,
+  .footer-nav > .resume-wrapper {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+
+  .resume-menu {
+    width: 270px;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
-    
-<div class="sticky-identity" id="stickyIdentity">
-  <div class="sticky-name">Andre R. Alexander, MD, MSHIA</div>
-  <div class="sticky-title">Medical Communications & Scientific Strategy</div>
+
+
+<!-- Sticky universal professional identity -->
+
+<div
+  class="sticky-identity"
+  id="stickyIdentity"
+>
+
+  <div class="sticky-name">
+    Andre R. Alexander, MD, MSHIA
+  </div>
+
+  <div class="sticky-title">
+    Physician | Health Informatics &amp; Healthcare AI | Medical Communications
+  </div>
+
 </div>
-    
+
+
+<!-- Academic and research archives -->
+
 <div class="container">
-<h2>Academic & Research Archives</h2>
-<p class="archive-subtitle">Select historical research posters and presentations from early academic training.</p>
 
-<div class="archive-item">
-<h3>Adverse Childhood Experiences (ACEs) and the Cortisol Awakening Response (CAR) in Children (2016)</h3>
-<p><strong>Format:</strong> Oral Presentation</p>
-<a href="Alexander_2016_Presentation.pdf" class="btn" target="_blank" rel="noopener noreferrer">View Presentation (PDF)</a>
+  <h2>
+    Academic &amp; Research Archives
+  </h2>
+
+  <p class="archive-subtitle">
+    Selected historical research presentations from early academic and medical training.
+  </p>
+
+
+  <div class="archive-item">
+
+    <h3>
+      Adverse Childhood Experiences (ACEs) and the Cortisol Awakening Response (CAR) in Children (2016)
+    </h3>
+
+    <p>
+      <strong>Format:</strong>
+      Oral Presentation
+    </p>
+
+    <a
+      href="Alexander_2016_Presentation.pdf"
+      class="btn"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View Presentation (PDF)
+    </a>
+
+  </div>
+
+
+  <div class="archive-item">
+
+    <h3>
+      Relationship Between Self-Actualization and Anticipated Benefits of Care (2013)
+    </h3>
+
+    <p>
+      <strong>Conference:</strong>
+      American Psychiatric Association Annual Conference
+    </p>
+
+    <a
+      href="Markota_2013_Poster.pdf"
+      class="btn"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View Poster (PDF)
+    </a>
+
+  </div>
+
+
+  <div class="archive-item">
+
+    <h3>
+      Investigating the Relationship Between Religiosity and Expectations of Treatment (2012)
+    </h3>
+
+    <p>
+      <strong>Conference:</strong>
+      American Psychiatric Association Annual Conference
+    </p>
+
+    <a
+      href="Balvaneda_2012_Poster.pdf"
+      class="btn"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View Poster (PDF)
+    </a>
+
+  </div>
+
+
+  <div class="back-to-portfolio">
+
+    <a href="portfolio.html">
+      ← Back to Portfolio Samples
+    </a>
+
+  </div>
+
 </div>
 
-<div class="archive-item">
-<h3>Relationship Between Self-Actualization and Anticipated Benefits of Care (2013)</h3>
-<p><strong>Conference:</strong> American Psychiatric Association Annual Conference</p>
-<a href="Markota_2013_Poster.pdf" class="btn" target="_blank" rel="noopener noreferrer">View Poster (PDF)</a>
+
+<!-- Footer navigation -->
+
+<div class="footer-nav">
+
+  <a href="index.html">
+    Return Home
+  </a>
+
+
+  <span class="footer-separator">
+    |
+  </span>
+
+
+  <!-- Resume selector -->
+
+  <div class="resume-wrapper">
+
+    <button
+      class="resume-trigger"
+      id="resumeButton"
+      onclick="toggleResumeMenu(event)"
+      aria-expanded="false"
+      aria-controls="resumeMenu"
+    >
+      View Resumes
+    </button>
+
+
+    <div
+      class="resume-menu"
+      id="resumeMenu"
+    >
+
+      <a
+        href="Andre_Alexander_AI_Informatics_Resume.pdf"
+        class="resume-option"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <span class="resume-option-title">
+          Clinical AI &amp; Informatics Resume
+        </span>
+
+        <span class="resume-option-description">
+          Physician, health informatics, clinical data &amp; healthcare AI
+        </span>
+
+      </a>
+
+
+      <div class="resume-divider"></div>
+
+
+      <a
+        href="Andre_Alexander_Resume_Public.pdf"
+        class="resume-option"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <span class="resume-option-title">
+          Medical Communications Resume
+        </span>
+
+        <span class="resume-option-description">
+          Medical writing, scientific strategy &amp; evidence communication
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <span class="footer-separator">
+    |
+  </span>
+
+
+  <a
+    href="https://linkedin.com/in/andre-r-alexander/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Let's Connect
+  </a>
+
 </div>
 
-<div class="archive-item">
-<h3>Investigating the Relationship Between Religiosity and Expectations of Treatment (2012)</h3>
-<p><strong>Conference:</strong> American Psychiatric Association Annual Conference</p>
-<a href="Balvaneda_2012_Poster.pdf" class="btn" target="_blank" rel="noopener noreferrer">View Poster (PDF)</a>
+
+<!-- Project inquiry -->
+
+<div class="project-cta">
+
+  Interested in working together?
+
+  <a
+    href="#"
+    class="project-inquiry-link"
+  >
+    Get in touch.
+  </a>
+
 </div>
 
-<div class="back-to-portfolio">
-<a href="portfolio.html">← Back to Portfolio Samples</a>
-</div>
-</div>
 
 <script>
-const stickyIdentity = document.getElementById('stickyIdentity');
 
-window.addEventListener('scroll', function () {
-  if (!stickyIdentity) return;
 
-  if (window.scrollY > 120) {
-    stickyIdentity.classList.add('visible');
-  } else {
-    stickyIdentity.classList.remove('visible');
+/* --------------------------------------------------------
+   FALLBACK RESUME SELECTOR
+
+   tracking.js supplies the analytics-enabled version on
+   the live site. This fallback allows the menu to work
+   in standalone HTML viewers too.
+-------------------------------------------------------- */
+
+if (typeof window.toggleResumeMenu !== 'function') {
+
+  window.toggleResumeMenu = function (event) {
+
+    if (event) {
+      event.stopPropagation();
+    }
+
+    const resumeMenu =
+      document.getElementById('resumeMenu');
+
+    const resumeButton =
+      document.getElementById('resumeButton');
+
+    if (!resumeMenu || !resumeButton) return;
+
+    const isOpen =
+      resumeMenu.classList.contains('open');
+
+
+    if (isOpen) {
+
+      resumeMenu.classList.remove('open');
+
+      setTimeout(function () {
+
+        if (
+          !resumeMenu.classList.contains('open')
+        ) {
+          resumeMenu.style.display = 'none';
+        }
+
+      }, 150);
+
+      resumeButton.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
+    } else {
+
+      resumeMenu.style.display = 'block';
+
+      requestAnimationFrame(function () {
+
+        resumeMenu.classList.add('open');
+
+      });
+
+      resumeButton.setAttribute(
+        'aria-expanded',
+        'true'
+      );
+
+    }
+
+  };
+
+}
+
+
+/* --------------------------------------------------------
+   STICKY HEADER
+-------------------------------------------------------- */
+
+const stickyIdentity =
+  document.getElementById('stickyIdentity');
+
+window.addEventListener(
+  'scroll',
+  function () {
+
+    if (!stickyIdentity) return;
+
+    if (window.scrollY > 120) {
+
+      stickyIdentity.classList.add(
+        'visible'
+      );
+
+    } else {
+
+      stickyIdentity.classList.remove(
+        'visible'
+      );
+
+    }
+
   }
-});
+);
+
 </script>
+
 
 </body>
 </html>
