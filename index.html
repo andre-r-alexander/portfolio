@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLFBPQRN84"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -8,15 +9,18 @@
   gtag('js', new Date());
   gtag('config', 'G-MLFBPQRN84');
 </script>
+
 <script src="tracking.js?v=3" defer></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Andre R. Alexander, MD, MSHIA</title>
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-  
+
 <style>
 
 .sticky-identity {
@@ -26,16 +30,15 @@
   width: 100%;
   z-index: 999;
 
-background-color: #2c3e50;
-backdrop-filter: none;
+  background-color: #2c3e50;
+  backdrop-filter: none;
 
   padding: 8px 15px 9px;
   box-sizing: border-box;
   text-align: center;
 
-  /* Subtle separation */
-border-bottom: 1px solid rgba(255,255,255,0.08);
-box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
 
   opacity: 0;
   transform: translateY(-100%);
@@ -61,7 +64,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.12);
 .sticky-title {
   color: #B0E0E6;
   font-size: 0.78rem;
-  line-height: 1.2;
+  line-height: 1.25;
   margin-top: 2px;
 }
 
@@ -71,7 +74,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
 
   .sticky-title {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
 }
 
@@ -168,6 +172,7 @@ h1 {
   border-left: 5px solid #B0E0E6;
   border-radius: 8px;
   text-align: left;
+
   transition:
     opacity 0.15s ease,
     transform 0.15s ease;
@@ -183,6 +188,7 @@ h1 {
   border-radius: 6px;
   margin-bottom: 6px;
   cursor: default;
+
   transition:
     background-color .22s cubic-bezier(.25,.8,.25,1),
     color .22s cubic-bezier(.25,.8,.25,1),
@@ -205,13 +211,18 @@ h1 {
   font-size: 0.92rem;
   line-height: 1.4;
   margin-top: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease,
+    margin-top 0.3s ease;
 }
 
 .service-item:hover,
 .service-item:focus-within {
   background-color: #B0E0E6;
   color: #2c3e50;
+
   transform:
     translateX(2px)
     translateY(-1px);
@@ -261,6 +272,7 @@ h1 {
     rgba(0, 0, 0, 0.35) 82%,
     transparent 100%
   );
+
   mask-image: radial-gradient(
     ellipse at center,
     black 52%,
@@ -289,6 +301,7 @@ h1 {
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   margin-bottom: 1.1rem;
 }
 
@@ -299,16 +312,101 @@ h1 {
   text-decoration: none;
   font-weight: bold;
   border-radius: 5px;
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+
   transition:
     background-color .18s ease,
     transform .18s ease,
     box-shadow .18s ease;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:focus {
   background-color: #9bd3d9;
   transform: translateY(-1px);
   box-shadow: 0 3px 10px rgba(0,0,0,.18);
+  outline: none;
+}
+
+
+/* Resume selector */
+
+.resume-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.resume-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  width: 285px;
+  box-sizing: border-box;
+
+  background-color: #34495e;
+  border: 1px solid rgba(176, 224, 230, 0.35);
+  border-radius: 7px;
+  box-shadow: 0 5px 16px rgba(0,0,0,.22);
+
+  padding: 8px;
+  z-index: 50;
+
+  opacity: 0;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.resume-menu.open {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.resume-option {
+  display: block;
+  text-align: left;
+  padding: 11px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+
+  transition:
+    background-color .18s ease,
+    transform .18s ease;
+}
+
+.resume-option:hover,
+.resume-option:focus {
+  background-color: rgba(176, 224, 230, 0.12);
+  outline: none;
+  transform: translateX(2px);
+}
+
+.resume-option-title {
+  display: block;
+  color: #B0E0E6;
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+}
+
+.resume-option-description {
+  display: block;
+  color: #e5eef0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.resume-divider {
+  height: 1px;
+  background-color: rgba(255,255,255,0.09);
+  margin: 3px 8px;
 }
 
 .project-cta {
@@ -331,19 +429,31 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  h1 { font-size: 2rem; }
-  .title-line { font-size: 1.2rem; }
-  .subtitle { font-size: 1rem; }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .title-line {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
   .services-list,
-  .about-panel { max-width: 92%; }
+  .about-panel {
+    max-width: 92%;
+  }
 
-.services-wrapper {
-  height: 555px;
-}
+  .services-wrapper {
+    height: 555px;
+  }
 
-.services-wrapper.services-closed {
-  height: auto;
-}
+  .services-wrapper.services-closed {
+    height: auto;
+  }
 
   .about-content {
     flex-direction: column;
@@ -354,192 +464,592 @@ h1 {
     width: 165px;
     height: 165px;
   }
+
+  .resume-menu {
+    width: 270px;
+  }
 }
+
 </style>
 </head>
 
 <body>
-    
+
+
+<!-- Sticky identity header -->
+
 <div class="sticky-identity" id="stickyIdentity">
-  <div class="sticky-name">Andre R. Alexander, MD, MSHIA</div>
-  <div class="sticky-title">Medical Communications & Scientific Strategy</div>
-</div>    
-    
-<h1>Andre R. Alexander, MD, MSHIA</h1>
 
-<div class="title-line">Medical Communications & Scientific Strategy</div>
-<div class="subtitle">Psychiatry & CNS Therapeutics</div>
-
-<div class="description">
-Physician and medical consultant with specialized training in psychiatry and CNS therapeutics. Combines clinical expertise with advanced health informatics training to translate complex clinical evidence into clear, evidence-based medical communications and scientific insights.
-</div>
-
-<div class="dropdowns-wrapper">
-  <div class="services-wrapper services-closed">
-    <button class="services-toggle" onclick="toggleServices()" id="servicesButton">
-      ▼ Consulting & Medical Writing Services
-    </button>
-
-    <div class="services-list" id="servicesList">
-      <div class="service-item" tabindex="0" data-service="Medical Writing">
-        <span class="service-title">Medical Writing</span>
-        <span class="service-description">Development of scientifically accurate, evidence-based content for professional and public audiences.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Clinical & Scientific Review">
-        <span class="service-title">Clinical & Scientific Review</span>
-        <span class="service-description">Clinical review of medical, educational, and scientific content for accuracy, completeness, credibility, and appropriate communication.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Literature Reviews">
-        <span class="service-title">Literature Reviews</span>
-        <span class="service-description">Targeted review and synthesis of clinical literature, guidelines, and scientific evidence.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Evidence Synthesis">
-        <span class="service-title">Evidence Synthesis</span>
-        <span class="service-description">Clear summaries of complex data to support scientific communication, education, and strategy.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Scientific Slide Decks">
-        <span class="service-title">Scientific Slide Decks</span>
-        <span class="service-description">Structured slide presentations for medical education, internal training, and scientific storytelling.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Medical Editing">
-        <span class="service-title">Medical Editing</span>
-        <span class="service-description">Editing for clarity, accuracy, organization, consistency, and audience-appropriate scientific communication.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Patient Education Materials">
-        <span class="service-title">Patient Education Materials</span>
-        <span class="service-description">Accessible content that translates complex medical concepts into clear language for patients and caregivers.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Executive Summaries">
-        <span class="service-title">Executive Summaries</span>
-        <span class="service-description">Concise, high-level summaries of clinical evidence, therapeutic landscapes, and scientific insights.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Advisory Board Reports">
-        <span class="service-title">Advisory Board Reports</span>
-        <span class="service-description">Structured summaries of expert discussion themes, clinical insights, and strategic implications.</span>
-      </div>
-
-      <div class="service-item" tabindex="0" data-service="Scientific Strategy Support">
-        <span class="service-title">Scientific Strategy Support</span>
-        <span class="service-description">Support for positioning scientific information, organizing key messages, and communicating evidence effectively.</span>
-      </div>
-    </div>
+  <div class="sticky-name">
+    Andre R. Alexander, MD, MSHIA
   </div>
 
+  <div class="sticky-title">
+    Physician | Health Informatics &amp; Healthcare AI | Medical Communications
+  </div>
+
+</div>
+
+
+<!-- Main professional identity -->
+
+<h1>
+  Andre R. Alexander, MD, MSHIA
+</h1>
+
+<div class="title-line">
+  Physician | Health Informatics &amp; Healthcare AI | Medical Communications
+</div>
+
+<div class="subtitle">
+  Psychiatry &amp; CNS Therapeutics
+</div>
+
+
+<!-- Professional summary -->
+
+<div class="description">
+  Physician with advanced training in psychiatry and an MS in Health Informatics and Analytics, combining clinical reasoning, informatics, and scientific communication to translate complex healthcare information into clear, structured, actionable insights. Particularly interested in the application of clinical expertise to AI-enabled healthcare, decision support, and healthcare technology.
+</div>
+
+
+<div class="dropdowns-wrapper">
+
+
+  <!-- Medical consulting and communication services -->
+
+  <div class="services-wrapper services-closed">
+
+    <button
+      class="services-toggle"
+      onclick="toggleServices()"
+      id="servicesButton"
+    >
+      ▼ Medical Consulting &amp; Communication Services
+    </button>
+
+
+    <div
+      class="services-list"
+      id="servicesList"
+    >
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Medical Writing"
+      >
+
+        <span class="service-title">
+          Medical Writing
+        </span>
+
+        <span class="service-description">
+          Development of scientifically accurate, evidence-based content for professional and public audiences.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Clinical & Scientific Review"
+      >
+
+        <span class="service-title">
+          Clinical &amp; Scientific Review
+        </span>
+
+        <span class="service-description">
+          Clinical review of medical, educational, and scientific content for accuracy, completeness, credibility, and appropriate communication.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Literature Reviews"
+      >
+
+        <span class="service-title">
+          Literature Reviews
+        </span>
+
+        <span class="service-description">
+          Targeted review and synthesis of clinical literature, guidelines, and scientific evidence.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Evidence Synthesis"
+      >
+
+        <span class="service-title">
+          Evidence Synthesis
+        </span>
+
+        <span class="service-description">
+          Clear summaries of complex data to support scientific communication, education, and strategy.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Scientific Slide Decks"
+      >
+
+        <span class="service-title">
+          Scientific Slide Decks
+        </span>
+
+        <span class="service-description">
+          Structured slide presentations for medical education, internal training, and scientific storytelling.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Medical Editing"
+      >
+
+        <span class="service-title">
+          Medical Editing
+        </span>
+
+        <span class="service-description">
+          Editing for clarity, accuracy, organization, consistency, and audience-appropriate scientific communication.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Patient Education Materials"
+      >
+
+        <span class="service-title">
+          Patient Education Materials
+        </span>
+
+        <span class="service-description">
+          Accessible content that translates complex medical concepts into clear language for patients and caregivers.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Executive Summaries"
+      >
+
+        <span class="service-title">
+          Executive Summaries
+        </span>
+
+        <span class="service-description">
+          Concise, high-level summaries of clinical evidence, therapeutic landscapes, and scientific insights.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Advisory Board Reports"
+      >
+
+        <span class="service-title">
+          Advisory Board Reports
+        </span>
+
+        <span class="service-description">
+          Structured summaries of expert discussion themes, clinical insights, and strategic implications.
+        </span>
+
+      </div>
+
+
+      <div
+        class="service-item"
+        tabindex="0"
+        data-service="Scientific Strategy Support"
+      >
+
+        <span class="service-title">
+          Scientific Strategy Support
+        </span>
+
+        <span class="service-description">
+          Support for positioning scientific information, organizing key messages, and communicating evidence effectively.
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Meet Andre -->
+
   <div class="about-wrapper">
-    <button class="about-toggle" onclick="toggleAbout()" id="aboutButton">
+
+    <button
+      class="about-toggle"
+      onclick="toggleAbout()"
+      id="aboutButton"
+    >
       ▼ Meet Andre
     </button>
 
-    <div class="about-panel" id="aboutPanel">
+
+    <div
+      class="about-panel"
+      id="aboutPanel"
+    >
+
       <div class="about-content">
+
         <div class="about-headshot-wrap">
-          <img src="https://andreralexander.com/headshot.png" alt="Andre R. Alexander" class="about-headshot">
+
+          <img
+            src="https://andreralexander.com/headshot.png"
+            alt="Andre R. Alexander"
+            class="about-headshot"
+          >
+
         </div>
+
+
         <div class="about-text">
+
           <p>
-            A Central Florida native, Andre combines medical training with graduate education in health informatics to help clients communicate complex science clearly. He has always enjoyed blending science and storytelling—from co-hosting a college radio show to serving as the narrator in his medical school's production of <em>Beauty and the Beast</em>. When he's away from his computer, he's usually playing basketball, playing dominoes, cheering on the Orlando Magic, or taking in stand-up comedy.
+            A Central Florida native, Andre combines physician training with graduate education in health informatics and a longstanding interest in translating complex information across clinical, technological, and scientific contexts. He has always enjoyed blending science and storytelling—from co-hosting a college radio show to serving as the narrator in his medical school's production of <em>Beauty and the Beast</em>. When he's away from his computer, he's usually playing basketball, playing dominoes, cheering on the Orlando Magic, or taking in stand-up comedy.
           </p>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
+
+
+<!-- Main buttons -->
 
 <div class="button-container">
-  <a href="portfolio.html" class="btn">View Portfolio</a>
-  <a href="Andre_Alexander_Resume_Public.pdf" class="btn" target="_blank" rel="noopener noreferrer">View Resume</a>
-  <a href="https://linkedin.com/in/andre-r-alexander/" class="btn" target="_blank" rel="noopener noreferrer">Let's Connect</a>
+
+
+  <!-- Portfolio -->
+
+  <a
+    href="portfolio.html"
+    class="btn"
+  >
+    View Portfolio
+  </a>
+
+
+  <!-- Resume selector -->
+
+  <div class="resume-wrapper">
+
+    <button
+      class="btn"
+      id="resumeButton"
+      onclick="toggleResumeMenu(event)"
+      aria-expanded="false"
+      aria-controls="resumeMenu"
+    >
+      View Resumes
+    </button>
+
+
+    <div
+      class="resume-menu"
+      id="resumeMenu"
+    >
+
+      <a
+        href="Andre_Alexander_AI_Informatics_Resume.pdf"
+        class="resume-option"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <span class="resume-option-title">
+          Clinical AI &amp; Informatics Resume
+        </span>
+
+        <span class="resume-option-description">
+          Physician, health informatics, clinical data &amp; healthcare AI
+        </span>
+
+      </a>
+
+
+      <div class="resume-divider"></div>
+
+
+      <a
+        href="Andre_Alexander_Resume_Public.pdf"
+        class="resume-option"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <span class="resume-option-title">
+          Medical Communications Resume
+        </span>
+
+        <span class="resume-option-description">
+          Medical writing, scientific strategy &amp; evidence communication
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- LinkedIn -->
+
+  <a
+    href="https://linkedin.com/in/andre-r-alexander/"
+    class="btn"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Let's Connect
+  </a>
+
 </div>
+
+
+<!-- Contact -->
 
 <div class="project-cta">
-  Interested in working together? <a href="#" onclick="openProjectInquiry(event)">Get in touch.</a>
+
+  Interested in working together?
+
+  <a
+    href="#"
+    class="project-inquiry-link"
+  >
+    Get in touch.
+  </a>
+
 </div>
 
+
 <script>
+
+
+/*
+ * --------------------------------------------------------
+ * FALLBACK SERVICES DROPDOWN
+ * --------------------------------------------------------
+ *
+ * tracking.js normally replaces window.toggleServices
+ * after DOMContentLoaded. This fallback keeps the page
+ * functional if tracking.js ever fails to load.
+ */
+
 if (typeof window.toggleServices !== 'function') {
+
   window.toggleServices = function () {
-    const servicesList = document.getElementById('servicesList');
-    const servicesButton = document.getElementById('servicesButton');
-    const servicesWrapper = document.querySelector('.services-wrapper');
+
+    const servicesList =
+      document.getElementById('servicesList');
+
+    const servicesButton =
+      document.getElementById('servicesButton');
+
+    const servicesWrapper =
+      document.querySelector('.services-wrapper');
 
     if (!servicesList || !servicesButton) return;
 
+
     if (servicesList.style.display === 'block') {
-      servicesButton.innerText = '▼ Consulting & Medical Writing Services';
-      servicesWrapper?.classList.add('services-closed');
-      closeFallbackDropdown(servicesList);
+
+      servicesButton.innerText =
+        '▼ Medical Consulting & Communication Services';
+
+      servicesWrapper?.classList.add(
+        'services-closed'
+      );
+
+      closeFallbackDropdown(
+        servicesList
+      );
+
     } else {
-      servicesButton.innerText = '▲ Consulting & Medical Writing Services';
-      servicesWrapper?.classList.remove('services-closed');
-      openFallbackDropdown(servicesList);
+
+      servicesButton.innerText =
+        '▲ Medical Consulting & Communication Services';
+
+      servicesWrapper?.classList.remove(
+        'services-closed'
+      );
+
+      openFallbackDropdown(
+        servicesList
+      );
+
     }
+
   };
+
 }
 
+
+/*
+ * --------------------------------------------------------
+ * FALLBACK ABOUT DROPDOWN
+ * --------------------------------------------------------
+ */
+
 if (typeof window.toggleAbout !== 'function') {
+
   window.toggleAbout = function () {
-    const aboutPanel = document.getElementById('aboutPanel');
-    const aboutButton = document.getElementById('aboutButton');
+
+    const aboutPanel =
+      document.getElementById('aboutPanel');
+
+    const aboutButton =
+      document.getElementById('aboutButton');
 
     if (!aboutPanel || !aboutButton) return;
 
+
     if (aboutPanel.style.display === 'block') {
-      aboutButton.innerText = '▼ Meet Andre';
-      closeFallbackDropdown(aboutPanel);
+
+      aboutButton.innerText =
+        '▼ Meet Andre';
+
+      closeFallbackDropdown(
+        aboutPanel
+      );
+
     } else {
-      aboutButton.innerText = '▲ Meet Andre';
-      openFallbackDropdown(aboutPanel);
+
+      aboutButton.innerText =
+        '▲ Meet Andre';
+
+      openFallbackDropdown(
+        aboutPanel
+      );
+
     }
+
   };
+
 }
+
+
+/*
+ * --------------------------------------------------------
+ * FALLBACK DROPDOWN HELPERS
+ * --------------------------------------------------------
+ */
 
 function openFallbackDropdown(panel) {
-  panel.style.display = 'block';
 
-  requestAnimationFrame(function () {
-    panel.classList.add('dropdown-open');
-  });
+  panel.style.display =
+    'block';
+
+  requestAnimationFrame(
+    function () {
+
+      panel.classList.add(
+        'dropdown-open'
+      );
+
+    }
+  );
+
 }
+
 
 function closeFallbackDropdown(panel) {
-  panel.classList.remove('dropdown-open');
 
-  setTimeout(function () {
-    panel.style.display = 'none';
-  }, 150);
+  panel.classList.remove(
+    'dropdown-open'
+  );
+
+  setTimeout(
+    function () {
+
+      panel.style.display =
+        'none';
+
+    },
+    150
+  );
+
 }
 
-if (typeof window.openProjectInquiry !== 'function') {
-  window.openProjectInquiry = function (event) {
-    if (event) event.preventDefault();
 
-    const user = 'andre';
-    const domain = 'andreralexander.com';
-    const subject = encodeURIComponent('Project inquiry');
+/*
+ * --------------------------------------------------------
+ * STICKY IDENTITY HEADER
+ * --------------------------------------------------------
+ */
 
-    window.location.href = `mailto:${user}@${domain}?subject=${subject}`;
-  };
-}
+const stickyIdentity =
+  document.getElementById(
+    'stickyIdentity'
+  );
 
-const stickyIdentity = document.getElementById('stickyIdentity');
 
-window.addEventListener('scroll', function () {
-  if (!stickyIdentity) return;
+window.addEventListener(
+  'scroll',
+  function () {
 
-if (window.scrollY > 245) {
-  stickyIdentity.classList.add('visible');
-} else {
-  stickyIdentity.classList.remove('visible');
-}
-});
+    if (!stickyIdentity) return;
+
+
+    if (window.scrollY > 245) {
+
+      stickyIdentity.classList.add(
+        'visible'
+      );
+
+    } else {
+
+      stickyIdentity.classList.remove(
+        'visible'
+      );
+
+    }
+
+  }
+);
+
 
 </script>
 
